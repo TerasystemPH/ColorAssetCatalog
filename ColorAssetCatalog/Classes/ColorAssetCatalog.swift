@@ -5,6 +5,8 @@
 //  Created by Sam Rayner on 12/06/2017.
 //
 
+import UIKit
+
 struct ColorAssetCatalog: Decodable {
     var colors: [ColorAsset]
 }

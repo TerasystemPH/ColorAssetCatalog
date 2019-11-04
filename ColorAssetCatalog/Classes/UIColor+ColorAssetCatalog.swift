@@ -5,6 +5,8 @@
 //  Created by Sam Rayner on 12/06/2017.
 //
 
+import UIKit
+
 public extension UIColor {
     /**
      Loads a color from an asset catalog.

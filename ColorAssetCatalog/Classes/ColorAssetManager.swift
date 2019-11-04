@@ -5,6 +5,8 @@
 //  Created by Sam Rayner on 12/06/2017.
 //
 
+import UIKit
+
 ///Provides access to and caching of colors in an asset catalog.
 ///For general use, use UIColor(asset:) rather than this class.
 public class ColorAssetManager {
@@ -32,9 +34,31 @@ public class ColorAssetManager {
     }
 
     func asset(named name: String) -> ColorAsset? {
-        guard let dir = (bundle ?? Bundle.main).resourceURL?.appendingPathComponent("\(catalogName).xcassets"),
-            let files = try? FileManager.default.contentsOfDirectory(at: dir, includingPropertiesForKeys: nil, options: []),
-            let colorset = files.first(where: { $0.lastPathComponent == "\(name).colorset" }),
+        guard let dir = (bundle ?? Bundle.main).resourceURL?.appendingPathComponent("\(catalogName).xcassets")
+            else {
+				return nil
+		}
+		
+		let nameNSString = name as NSString
+		let pathComponents = nameNSString.pathComponents
+		let lastPathComponent = nameNSString.lastPathComponent
+		let finalDir: URL = {
+			var tempDir = dir
+			
+			pathComponents.enumerated().forEach { (index, pathComponent) in
+				// do not follow the last path component
+				guard index < pathComponents.count - 1 else {
+					return // equivalent to continue in for-in loop
+				}
+				
+				tempDir = tempDir.appendingPathComponent(pathComponent)
+			}
+			
+			return tempDir
+		}()
+		
+        guard let files = try? FileManager.default.contentsOfDirectory(at: finalDir, includingPropertiesForKeys: nil, options: []),
+            let colorset = files.first(where: { $0.lastPathComponent == "\(lastPathComponent).colorset" }),
             let data = try? Data(contentsOf: colorset.appendingPathComponent("Contents.json")),
             let catalog = try? JSONDecoder().decode(ColorAssetCatalog.self, from: data)
             else {
