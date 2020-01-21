@@ -22,7 +22,7 @@ public extension UIColor {
      - Parameter name: The name of the color in the asset catalog.
      - Returns: A UIColor or nil if a color is not found of that name.
      */
-    public convenience init?(asset name: String) {
+	convenience init?(asset name: String) {
         if #available(iOS 11.0, *) {
             self.init(named: name)
         } else {
@@ -45,7 +45,7 @@ public extension UIColor {
      - Parameter name: The name of the color in the asset catalog.
      - Returns: A UIColor or nil if a color is not found of that name.
      */
-    public convenience init?(asset name: String, in bundle: Bundle?, compatibleWith traitCollection: UITraitCollection?) {
+	convenience init?(asset name: String, in bundle: Bundle?, compatibleWith traitCollection: UITraitCollection?) {
         if #available(iOS 11.0, *) {
             self.init(named: name, in: bundle, compatibleWith: traitCollection)
         } else {
