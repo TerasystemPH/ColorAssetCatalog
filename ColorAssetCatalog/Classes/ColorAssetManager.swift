@@ -14,7 +14,7 @@ public class ColorAssetManager {
 	public static let shared = ColorAssetManager()
 
 	///The name of the asset catalog to fetch colors from.
-	public var catalogName = "Colors"
+	public let catalogName: String
 
 	///The bundle that the asset catalog is in.
 	public var bundle: Bundle?
@@ -24,10 +24,12 @@ public class ColorAssetManager {
 
 	var cgColors: [String: CGColor] = [:]
 
-	private init() {
+	/// `catalogName` refers to the asset catalog to fetch colors from.
+	init(catalogName: String = "Colors") {
+		self.catalogName = catalogName
     	NotificationCenter.default.addObserver(self, selector: #selector(clearCache), name: UIApplication.didReceiveMemoryWarningNotification, object: nil)
 	}
-
+	
 	///Clear all used color objects from memory.
 	@objc public func clearCache() {
     	cgColors.removeAll()
