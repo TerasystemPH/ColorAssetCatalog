@@ -131,10 +131,10 @@ extension ColorAsset.Color {
 
     	init(from decoder: Decoder) throws {
 	    	let values = try decoder.container(keyedBy: CodingKeys.self)
-	    	alpha   = try decodeCGFloat(for: .alpha, in: values)
-	    	red	 = try decodeCGFloat(for: .red, in: values)
-	    	green   = try decodeCGFloat(for: .green, in: values)
-	    	blue	= try decodeCGFloat(for: .blue, in: values)
+	    	alpha = try decodeCGFloat(for: .alpha, in: values)
+	    	red = try decodeCGFloat(for: .red, in: values)
+	    	green = try decodeCGFloat(for: .green, in: values)
+	    	blue = try decodeCGFloat(for: .blue, in: values)
     	}
 
     	private func decodeCGFloat(for key: CodingKeys, in container: KeyedDecodingContainer<CodingKeys>) throws -> CGFloat {
